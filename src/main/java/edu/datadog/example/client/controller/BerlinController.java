@@ -1,7 +1,8 @@
-package com.payclip.datadog.simple.datadogexampleclient.controller;
+package edu.datadog.example.client.controller;
 
-import com.payclip.datadog.simple.datadogexampleclient.service.RandomContributor;
-import com.payclip.datadog.simple.datadogexampleclient.util.Contributors;
+import com.timgroup.statsd.StatsDClient;
+import edu.datadog.example.client.service.RandomContributorService;
+import edu.datadog.example.client.util.Contributors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +16,21 @@ import java.util.Arrays;
 @RequestMapping("/berlin")
 public class BerlinController {
 
-    private RandomContributor randomContributor;
+    private RandomContributorService randomContributorService;
+    private StatsDClient statsDClient;
 
-    public BerlinController(RandomContributor randomContributor) {
-        this.randomContributor = randomContributor;
+    public BerlinController(RandomContributorService randomContributorService, StatsDClient statsDClient) {
+        this.randomContributorService = randomContributorService;
+        this.statsDClient = statsDClient;
     }
 
     @GetMapping("/contributors")
     public String listContributors(@RequestParam(value = "greeting", required = false) String greeting) {
         final String fGreeting = greeting == null || greeting.isEmpty() ? "Hello!!!" : greeting;
-        log.info("{} ", fGreeting);
         log.info("{}, these are the contributors: ", Arrays.toString(Contributors.BERLIN_CONTRIBUTORS));
-        return String.format("%s, thesse are the contributors: %s", fGreeting, Arrays.toString(Contributors.BERLIN_CONTRIBUTORS));
+
+        statsDClient.incrementCounter("list.berlin.contributor.count");
+        return String.format("%s, these are the contributors: %s", fGreeting, Arrays.toString(Contributors.BERLIN_CONTRIBUTORS));
     }
 
     @GetMapping("/best-contributor")
@@ -37,6 +41,7 @@ public class BerlinController {
 
     @GetMapping("/random-contributor")
     public String randomContributor() {
-        return randomContributor.randomContributor();
+        log.info("calling random controller...");
+        return randomContributorService.randomContributor();
     }
 }

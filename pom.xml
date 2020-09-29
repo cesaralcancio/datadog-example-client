@@ -8,7 +8,7 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.payclip.datadog.simple</groupId>
+    <groupId>edu.datadog.example.client</groupId>
     <artifactId>datadog-example-client</artifactId>
     <version>0.0.1</version>
     <name>datadog-example-client</name>
@@ -18,14 +18,8 @@
         <java.version>11</java.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>maven-s3-release-repo</id>
-            <url>s3://payclip-maven-repo/releases</url>
-        </repository>
-    </repositories>
-
     <dependencies>
+        <!-- Spring initializer dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -37,11 +31,13 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -54,28 +50,21 @@
             </exclusions>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.datadoghq/dd-trace-api -->
-<!--        <dependency>-->
-<!--            <groupId>com.datadoghq</groupId>-->
-<!--            <artifactId>dd-trace-api</artifactId>-->
-<!--            <version>0.63.0</version>-->
-<!--        </dependency>-->
+        <!-- Datadog Trace -->
+        <dependency>
+            <groupId>com.datadoghq</groupId>
+            <artifactId>dd-trace-api</artifactId>
+            <version>0.63.0</version>
+        </dependency>
 
-        <!-- Clip Common -->
-<!--        <dependency>-->
-<!--            <groupId>com.payclip</groupId>-->
-<!--            <artifactId>payclip-common-lib</artifactId>-->
-<!--            <version>3.7.12</version>-->
-<!--        </dependency>-->
+        <!-- Data Dog StatsD -->
+        <dependency>
+            <groupId>com.datadoghq</groupId>
+            <artifactId>java-dogstatsd-client</artifactId>
+            <version>2.10.1</version>
+        </dependency>
 
-        <!-- Clip Datadog -->
-<!--        <dependency>-->
-<!--            <groupId>com.payclip.datadog</groupId>-->
-<!--            <artifactId>datadog-client</artifactId>-->
-<!--            <version>1.1.0</version>-->
-<!--        </dependency>-->
-
-        <!-- log back -->
+        <!-- Logback core & classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
@@ -88,7 +77,7 @@
             <version>1.1.11</version>
         </dependency>
 
-        <!-- Datadog logs -->
+        <!-- Loback Encoder JSON -->
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>

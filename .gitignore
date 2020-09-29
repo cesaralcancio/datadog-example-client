@@ -33,4 +33,8 @@ build/
 .vscode/
 
 ### Project ####
-/src/docker/datadog_secret.sh
+/src/docker/set_datadog_agent_env.sh
+/src/docker/set_datadog_agent_env.sh
+/URL_APP_LOG_IS_UNDEFINED/
+/logs/
+/logs/**

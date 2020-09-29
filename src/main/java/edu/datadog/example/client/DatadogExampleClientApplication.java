@@ -1,4 +1,4 @@
-package com.payclip.datadog.simple.datadogexampleclient;
+package edu.datadog.example.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
